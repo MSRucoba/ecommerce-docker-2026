@@ -22,16 +22,16 @@ pipeline {
 
         stage('Package') {
             steps {
-                echo "Empaquetando aplicacion..."
+                echo "Empaquetando proyecto..."
                 sh "mvn package -DskipTests"
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
-                echo "Analizando codigo con SonarQube..."
+                echo "Analizando con SonarQube..."
                 withSonarQubeEnv('sonarqube') {
-                    sh "mvn sonar:sonar -Dsonar.projectKey=ecommerce-docker-2026 -Dsonar.projectName='Ecommerce Docker 2026'"
+                    sh "mvn sonar:sonar -Dsonar.projectKey=ecommerce-docker-2026 -Dsonar.projectName=Ecommerce"
                 }
             }
         }
@@ -39,10 +39,10 @@ pipeline {
 
     post {
         success {
-            echo "Pipeline ejecutado con exito!"
+            echo "Pipeline OK"
         }
         failure {
-            echo "Pipeline fallo."
+            echo "Pipeline FAILED"
         }
     }
-}¡
+}
