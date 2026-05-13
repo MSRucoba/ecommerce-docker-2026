@@ -22,4 +22,25 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo "Ejecutando
+                echo "Ejecutando tests..."
+                sh "mvn test"
+            }
+        }
+
+        stage('Package') {
+            steps {
+                echo "Empaquetando aplicacion..."
+                sh "mvn package -DskipTests"
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline ejecutado con exito!"
+        }
+        failure {
+            echo "Pipeline fallo."
+        }
+    }
+}
