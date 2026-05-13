@@ -26,6 +26,15 @@ pipeline {
                 sh "mvn package -DskipTests"
             }
         }
+
+        stage('SonarQube Analysis') {
+            steps {
+                echo "Analizando codigo con SonarQube..."
+                withSonarQubeEnv('sonarqube') {
+                    sh "mvn sonar:sonar -Dsonar.projectKey=ecommerce-docker-2026 -Dsonar.projectName='Ecommerce Docker 2026'"
+                }
+            }
+        }
     }
 
     post {
@@ -36,4 +45,4 @@ pipeline {
             echo "Pipeline fallo."
         }
     }
-}
+}¡
